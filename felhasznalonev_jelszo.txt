@@ -3,3 +3,5 @@ gmail:
 
 wikipedia (wikpedia oldal létrehozásához, módosításához):
 	felhasználónev/jelszó: szarch_hf/ventillator
+	
+	https://en.wikipedia.org/wiki/User:Szarch_hf
