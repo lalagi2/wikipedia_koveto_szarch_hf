@@ -57,5 +57,10 @@ namespace wikipedia_koveto
                 resultText.Text = "";
             }
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

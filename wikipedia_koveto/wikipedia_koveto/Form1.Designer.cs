@@ -210,6 +210,7 @@
             this.Controls.Add(this.sourceButton);
             this.Name = "Form1";
             this.Text = "Wikipedia_koveto";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
