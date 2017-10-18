@@ -15,7 +15,7 @@ namespace wikipedia_koveto
         static void Main()
         {
             EmailSender emailSender = new EmailSender();
-            emailSender.sendEmail("tothlajosg@gmail.com", "toth lajos", "hello", "uzenet");
+            emailSender.sendEmail("tothlajosg@gmail.com", "toth lajos", "subject", "uzenet");
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

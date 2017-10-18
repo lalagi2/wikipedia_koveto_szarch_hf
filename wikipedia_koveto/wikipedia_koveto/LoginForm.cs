@@ -24,7 +24,7 @@ namespace wikipedia_koveto
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(passwordTextBox.Text == "password")
+            if (passwordTextBox.Text == "password")
             {
                 this.Hide();
                 Form1 form1 = new Form1();
