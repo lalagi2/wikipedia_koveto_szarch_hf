@@ -15,6 +15,12 @@ namespace wikipedia_koveto.Forms
     {
         private string userName; // To store which admin logged in
 
+        public void deleteDataGrid()
+        {
+           // this.dataGridView1.DataSource = null;
+            this.dataGridView1.Rows.Clear();
+        }
+
         public void modifyDataGrid()
         {
             dataGridView1.Rows[0].Cells[1].Value = "TEST COMPLETE";
@@ -22,6 +28,8 @@ namespace wikipedia_koveto.Forms
 
         public void refreshDataGrid()
         {
+            deleteDataGrid();
+
             using (UserDataEntities dc = new UserDataEntities())
             {
                 var groups = from page in dc.Pages
@@ -54,6 +62,18 @@ namespace wikipedia_koveto.Forms
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void subscribeButton_Click(object sender, EventArgs e)
+        {
+            // newWikipediaPageTextBox, sensitivityNumericBox, refreshRateNumericBox értékét  kiovlassuk, és beszúrunk egy új sort a Pages táblába
+
+            refreshDataGrid();
         }
     }
 }
