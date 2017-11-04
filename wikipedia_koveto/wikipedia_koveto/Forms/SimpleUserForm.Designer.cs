@@ -48,6 +48,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.subscribeButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.unsubscribeButton = new System.Windows.Forms.Button();
+            this.unsubscribeComboBox1 = new System.Windows.Forms.ComboBox();
+            this.modifyButton = new System.Windows.Forms.Button();
+            this.modifySensitivityNumericBox = new System.Windows.Forms.NumericUpDown();
+            this.modifyRefreshRate = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.userDataDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDataDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDataDataSetBindingSource1)).BeginInit();
@@ -55,6 +63,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sensitivityNumericBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.refreshRateNumericBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.modifySensitivityNumericBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.modifyRefreshRate)).BeginInit();
             this.SuspendLayout();
             // 
             // WelcomeLabel
@@ -142,21 +152,20 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(352, 26);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Subsrcibe to a new Wikipedia page";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Text = "Subscribe to a new Wikipedia page";
             // 
             // sensitivityNumericBox
             // 
-            this.sensitivityNumericBox.Location = new System.Drawing.Point(384, 181);
+            this.sensitivityNumericBox.Location = new System.Drawing.Point(383, 181);
             this.sensitivityNumericBox.Name = "sensitivityNumericBox";
-            this.sensitivityNumericBox.Size = new System.Drawing.Size(120, 20);
+            this.sensitivityNumericBox.Size = new System.Drawing.Size(51, 20);
             this.sensitivityNumericBox.TabIndex = 4;
             // 
             // refreshRateNumericBox
             // 
-            this.refreshRateNumericBox.Location = new System.Drawing.Point(529, 181);
+            this.refreshRateNumericBox.Location = new System.Drawing.Point(470, 182);
             this.refreshRateNumericBox.Name = "refreshRateNumericBox";
-            this.refreshRateNumericBox.Size = new System.Drawing.Size(120, 20);
+            this.refreshRateNumericBox.Size = new System.Drawing.Size(67, 20);
             this.refreshRateNumericBox.TabIndex = 5;
             // 
             // newWikipediaPageTextBox
@@ -178,7 +187,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(381, 162);
+            this.label3.Location = new System.Drawing.Point(380, 162);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 13);
             this.label3.TabIndex = 8;
@@ -187,7 +196,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(526, 162);
+            this.label4.Location = new System.Drawing.Point(467, 163);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(70, 13);
             this.label4.TabIndex = 9;
@@ -195,7 +204,7 @@
             // 
             // subscribeButton
             // 
-            this.subscribeButton.Location = new System.Drawing.Point(666, 177);
+            this.subscribeButton.Location = new System.Drawing.Point(573, 178);
             this.subscribeButton.Name = "subscribeButton";
             this.subscribeButton.Size = new System.Drawing.Size(102, 23);
             this.subscribeButton.TabIndex = 10;
@@ -203,11 +212,90 @@
             this.subscribeButton.UseVisualStyleBackColor = true;
             this.subscribeButton.Click += new System.EventHandler(this.subscribeButton_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(30, 241);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(76, 26);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Modify";
+            // 
+            // unsubscribeButton
+            // 
+            this.unsubscribeButton.Location = new System.Drawing.Point(703, 283);
+            this.unsubscribeButton.Name = "unsubscribeButton";
+            this.unsubscribeButton.Size = new System.Drawing.Size(106, 23);
+            this.unsubscribeButton.TabIndex = 12;
+            this.unsubscribeButton.Text = "Unsubscribe!";
+            this.unsubscribeButton.UseVisualStyleBackColor = true;
+            this.unsubscribeButton.Click += new System.EventHandler(this.unsubscribeButton_Click);
+            // 
+            // unsubscribeComboBox1
+            // 
+            this.unsubscribeComboBox1.FormattingEnabled = true;
+            this.unsubscribeComboBox1.Location = new System.Drawing.Point(32, 285);
+            this.unsubscribeComboBox1.Name = "unsubscribeComboBox1";
+            this.unsubscribeComboBox1.Size = new System.Drawing.Size(316, 21);
+            this.unsubscribeComboBox1.TabIndex = 13;
+            this.unsubscribeComboBox1.SelectedIndexChanged += new System.EventHandler(this.unsubscribeComboBox1_SelectedIndexChanged);
+            // 
+            // modifyButton
+            // 
+            this.modifyButton.Location = new System.Drawing.Point(573, 283);
+            this.modifyButton.Name = "modifyButton";
+            this.modifyButton.Size = new System.Drawing.Size(102, 23);
+            this.modifyButton.TabIndex = 14;
+            this.modifyButton.Text = "Modify!";
+            this.modifyButton.UseVisualStyleBackColor = true;
+            this.modifyButton.Click += new System.EventHandler(this.modifyButton_Click);
+            // 
+            // modifySensitivityNumericBox
+            // 
+            this.modifySensitivityNumericBox.Location = new System.Drawing.Point(383, 286);
+            this.modifySensitivityNumericBox.Name = "modifySensitivityNumericBox";
+            this.modifySensitivityNumericBox.Size = new System.Drawing.Size(51, 20);
+            this.modifySensitivityNumericBox.TabIndex = 15;
+            // 
+            // modifyRefreshRate
+            // 
+            this.modifyRefreshRate.Location = new System.Drawing.Point(470, 286);
+            this.modifyRefreshRate.Name = "modifyRefreshRate";
+            this.modifyRefreshRate.Size = new System.Drawing.Size(67, 20);
+            this.modifyRefreshRate.TabIndex = 16;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(467, 270);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 13);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Refresh Rate";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(380, 270);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(54, 13);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "Sensitivity";
+            // 
             // SimpleUserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(821, 574);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.modifyRefreshRate);
+            this.Controls.Add(this.modifySensitivityNumericBox);
+            this.Controls.Add(this.modifyButton);
+            this.Controls.Add(this.unsubscribeComboBox1);
+            this.Controls.Add(this.unsubscribeButton);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.subscribeButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -228,6 +316,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sensitivityNumericBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.refreshRateNumericBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.modifySensitivityNumericBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.modifyRefreshRate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -254,5 +344,13 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button subscribeButton;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button unsubscribeButton;
+        private System.Windows.Forms.ComboBox unsubscribeComboBox1;
+        private System.Windows.Forms.Button modifyButton;
+        private System.Windows.Forms.NumericUpDown modifySensitivityNumericBox;
+        private System.Windows.Forms.NumericUpDown modifyRefreshRate;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
