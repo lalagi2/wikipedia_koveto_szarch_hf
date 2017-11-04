@@ -49,7 +49,6 @@ namespace wikipedia_koveto
                     }
                 }
 
-
                 if (!userFound)
                 {
                     MessageBox.Show("Invalid username or password");
