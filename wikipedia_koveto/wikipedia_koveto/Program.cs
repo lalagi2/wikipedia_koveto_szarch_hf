@@ -20,9 +20,9 @@ namespace wikipedia_koveto
             //EmailSender emailSender = new EmailSender();
             //emailSender.sendEmail("tothlajosg@gmail.com", "toth lajos", "subject", "uzenet");
 
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new LoginForm());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new LoginForm());
 
             // Test Database
             using (UserDataEntities dc = new UserDataEntities())
