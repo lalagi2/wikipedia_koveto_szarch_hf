@@ -44,7 +44,6 @@ namespace wikipedia_koveto
                         Console.WriteLine("   {0}, {1}, {2}", page.WikiPage, page.Sensitivity, page.NotificationNumber);
                     }
                 }
-
             }
         }
     }

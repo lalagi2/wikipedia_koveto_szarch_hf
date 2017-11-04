@@ -19,7 +19,7 @@ namespace wikipedia_koveto
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
-                Port = 587,q
+                Port = 587,
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 Credentials = new NetworkCredential(fromAddress.Address, fromPassword),

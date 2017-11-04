@@ -84,11 +84,17 @@
     <Compile Include="Forms\AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Form1.cs">
+    <Compile Include="Forms\SimpleUserForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\SimpleUserForm.Designer.cs">
+      <DependentUpon>SimpleUserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WikipediaAPIForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WikipediaAPIForm.Designer.cs">
+      <DependentUpon>WikipediaAPIForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
@@ -126,8 +132,8 @@
     </Compile>
     <Compile Include="WikipediaAPI\WikiAPI.cs" />
     <Compile Include="WikipediaAPI\WikiAPIException.cs" />
-    <EmbeddedResource Include="Forms\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\WikipediaAPIForm.resx">
+      <DependentUpon>WikipediaAPIForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

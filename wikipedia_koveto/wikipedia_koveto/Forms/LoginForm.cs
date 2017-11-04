@@ -25,31 +25,34 @@ namespace wikipedia_koveto
 
         private void button1_Click(object sender, EventArgs e)
         {
-            bool userFound = false;
-
+            bool loginSuccessful = false;
             using (UserDataEntities dc = new UserDataEntities())
             {
                 var users = from user in dc.Users select new { user.UserName, user.Email, user.IsAdmin, user.UserPass };
                 foreach (var user in users)
                 {
-                   // Console.WriteLine("( " + user.UserName + ", " + user.Email + " " + user.UserPass);
+                    Console.WriteLine("( " + user.UserName + ", " + user.Email + " " + user.UserPass);
                     if (userNameTextBox.Text == user.UserName && passwordTextBox.Text == user.UserPass)
                     {
-                        userFound = true;
+                        loginSuccessful = true;
                         if (user.IsAdmin)
                         {
                             // Elugrunk az admin windowra
-                            Console.WriteLine("login OK admin");
+                            this.Hide();
+                            Forms.AdminForm adminForm = new Forms.AdminForm();
+                            adminForm.Show();
                         }
                         else
                         {
                             // Elugurnk a sima wiondowra
-                            Console.WriteLine("login OK sima");
+                            this.Hide();
+                            Forms.SimpleUserForm userForm = new Forms.SimpleUserForm();
+                            userForm.Show();
                         }
                     }
                 }
 
-                if (!userFound)
+                if (!loginSuccessful)
                 {
                     MessageBox.Show("Invalid username or password");
                 }
