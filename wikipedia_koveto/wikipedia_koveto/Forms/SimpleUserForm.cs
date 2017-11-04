@@ -34,7 +34,7 @@ namespace wikipedia_koveto.Forms
                     foreach (var page in g)
                     {
                         Console.WriteLine("   {0}, {1}, {2}", page.WikiPage, page.Sensitivity, page.NotificationNumber);
-                        this.dataGridView1.Rows.Add(page.WikiPage, page.Sensitivity, page.NotificationNumber, page.RefreshRate);
+                        this.dataGridView1.Rows.Add(page.WikiPage, page.Sensitivity, page.NotificationNumber);
                     }
                 }
             }
@@ -48,7 +48,7 @@ namespace wikipedia_koveto.Forms
             WelcomeLabel.Text += " " + userName + "!";
 
             refreshDataGrid();
-            modifyDataGrid();
+           // modifyDataGrid();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

@@ -41,7 +41,7 @@ namespace wikipedia_koveto
                     Console.WriteLine(g.Key);
                     foreach (var page in g)
                     {
-                        Console.WriteLine("   {0}, {1}, {2}, {3}", page.WikiPage, page.Sensitivity, page.NotificationNumber, page.RefreshRate);
+                        Console.WriteLine("   {0}, {1}, {2}, {3}", page.WikiPage, page.Sensitivity, page.NotificationNumber);
                     }
                 }
             }
