@@ -39,6 +39,7 @@
             this.WikipediaPage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Sensitivity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NotificationNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RefreshRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.userDataDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDataDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDataDataSetBindingSource1)).BeginInit();
@@ -93,10 +94,11 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.WikipediaPage,
             this.Sensitivity,
-            this.NotificationNumber});
+            this.NotificationNumber,
+            this.RefreshRate});
             this.dataGridView1.Location = new System.Drawing.Point(32, 401);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(501, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(617, 150);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -117,11 +119,16 @@
             this.NotificationNumber.Name = "NotificationNumber";
             this.NotificationNumber.Width = 157;
             // 
+            // RefreshRate
+            // 
+            this.RefreshRate.HeaderText = "Refresh Rate";
+            this.RefreshRate.Name = "RefreshRate";
+            // 
             // SimpleUserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 574);
+            this.ClientSize = new System.Drawing.Size(821, 574);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.SubsribeLabel);
             this.Controls.Add(this.WelcomeLabel);
@@ -149,5 +156,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn WikipediaPage;
         private System.Windows.Forms.DataGridViewTextBoxColumn Sensitivity;
         private System.Windows.Forms.DataGridViewTextBoxColumn NotificationNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RefreshRate;
     }
 }

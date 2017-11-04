@@ -21,5 +21,6 @@ namespace wikipedia_koveto.Model
         public int NotificationNumber { get; set; }
     
         public virtual User User { get; set; }
+        public int RefreshRate { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace wikipedia_koveto
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            Application.Run(new Forms.SimpleUserForm("User1"));
 
             // Test Database
             using (UserDataEntities dc = new UserDataEntities())
@@ -33,7 +33,7 @@ namespace wikipedia_koveto
                     Console.WriteLine("( " + user.UserName + ", " + user.Email + " )");
                 }
 
-                var groups = from page in dc.Pages
+                var groups = from page in dc.Pages where page.UserName.Contains("User1")
                             group page by page.UserName into g
                             select g;
                 foreach (var g in groups)
@@ -41,7 +41,7 @@ namespace wikipedia_koveto
                     Console.WriteLine(g.Key);
                     foreach (var page in g)
                     {
-                        Console.WriteLine("   {0}, {1}, {2}", page.WikiPage, page.Sensitivity, page.NotificationNumber);
+                        Console.WriteLine("   {0}, {1}, {2}, {3}", page.WikiPage, page.Sensitivity, page.NotificationNumber, page.RefreshRate);
                     }
                 }
             }

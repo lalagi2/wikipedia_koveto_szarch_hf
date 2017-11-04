@@ -15,6 +15,11 @@ namespace wikipedia_koveto.Forms
     {
         private string userName; // To store which admin logged in
 
+        public void modifyDataGrid()
+        {
+            dataGridView1.Rows[0].Cells[1].Value = "TEST COMPLETE";
+        }
+
         public void refreshDataGrid()
         {
             using (UserDataEntities dc = new UserDataEntities())
@@ -29,7 +34,7 @@ namespace wikipedia_koveto.Forms
                     foreach (var page in g)
                     {
                         Console.WriteLine("   {0}, {1}, {2}", page.WikiPage, page.Sensitivity, page.NotificationNumber);
-                        this.dataGridView1.Rows.Add(page.WikiPage, page.Sensitivity, page.NotificationNumber);
+                        this.dataGridView1.Rows.Add(page.WikiPage, page.Sensitivity, page.NotificationNumber, page.RefreshRate);
                     }
                 }
             }
@@ -43,6 +48,7 @@ namespace wikipedia_koveto.Forms
             WelcomeLabel.Text += " " + userName + "!";
 
             refreshDataGrid();
+            modifyDataGrid();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
