@@ -132,6 +132,9 @@
     </Compile>
     <Compile Include="WikipediaAPI\WikiAPI.cs" />
     <Compile Include="WikipediaAPI\WikiAPIException.cs" />
+    <EmbeddedResource Include="Forms\SimpleUserForm.resx">
+      <DependentUpon>SimpleUserForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\WikipediaAPIForm.resx">
       <DependentUpon>WikipediaAPIForm.cs</DependentUpon>
     </EmbeddedResource>
