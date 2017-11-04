@@ -31,7 +31,6 @@ namespace wikipedia_koveto
                 var users = from user in dc.Users select new { user.UserName, user.Email, user.IsAdmin, user.UserPass };
                 foreach (var user in users)
                 {
-                    Console.WriteLine("( " + user.UserName + ", " + user.Email + " " + user.UserPass);
                     if (userNameTextBox.Text == user.UserName && passwordTextBox.Text == user.UserPass)
                     {
                         loginSuccessful = true;
@@ -39,14 +38,14 @@ namespace wikipedia_koveto
                         {
                             // Elugrunk az admin windowra
                             this.Hide();
-                            Forms.AdminForm adminForm = new Forms.AdminForm();
+                            Forms.AdminForm adminForm = new Forms.AdminForm(user.UserName);
                             adminForm.Show();
                         }
                         else
                         {
-                            // Elugurnk a sima wiondowra
+                            // Elugrunk a sima wiondowra
                             this.Hide();
-                            Forms.SimpleUserForm userForm = new Forms.SimpleUserForm();
+                            Forms.SimpleUserForm userForm = new Forms.SimpleUserForm(user.UserName);
                             userForm.Show();
                         }
                     }

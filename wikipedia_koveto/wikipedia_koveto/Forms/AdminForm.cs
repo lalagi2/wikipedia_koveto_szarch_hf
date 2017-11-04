@@ -12,9 +12,13 @@ namespace wikipedia_koveto.Forms
 {
     public partial class AdminForm : Form
     {
-        public AdminForm()
+        private string userName; // To store which admin logged in
+
+        public AdminForm(string userName)
         {
             InitializeComponent();
+
+            this.userName = userName;
         }
     }
 }
