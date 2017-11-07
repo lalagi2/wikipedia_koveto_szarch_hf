@@ -41,9 +41,9 @@ namespace wikipedia_koveto.Forms
                     Console.WriteLine(g.Key);
                     foreach (var page in g)
                     {
-                        Console.WriteLine("   {0}, {1}, {2}", page.WikiPage, page.Sensitivity, page.NotificationNumber);
+                        Console.WriteLine("   {0}, {1}, {2}, {3}", page.WikiPage, page.Sensitivity, page.NotificationNumber, page.RefreshRate);
                         this.unsubscribeComboBox1.Items.Add(page.WikiPage);
-                        this.dataGridView1.Rows.Add(page.WikiPage, page.Sensitivity, page.NotificationNumber);
+                        this.dataGridView1.Rows.Add(page.WikiPage, page.Sensitivity, page.NotificationNumber, page.RefreshRate);
                     }
                 }
             }
