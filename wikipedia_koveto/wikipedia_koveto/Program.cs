@@ -10,12 +10,23 @@ namespace wikipedia_koveto
 {
     static class Program
     {
+        static void checkForDifferencesAndSendEmail(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            Console.WriteLine("The Elapsed event was raised at {0}", e.SignalTime);
+        }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
+
+            System.Timers.Timer timer = new System.Timers.Timer();
+            timer.Interval = 1000;
+            timer.Elapsed += checkForDifferencesAndSendEmail;
+            timer.Start();
+
             // Test email
             //EmailSender emailSender = new EmailSender();
             //emailSender.sendEmail("tothlajosg@gmail.com", "toth lajos", "subject", "uzenet");

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -26,9 +27,36 @@ namespace wikipedia_koveto.Forms
             dataGridView1.Rows[0].Cells[1].Value = "TEST COMPLETE"; // átírja a 0. sor 1. oszlopot "TEST COMPLETE"-re
         }
 
+        private void subscribeButton_Click(object sender, EventArgs e)
+        {
+            // newWikipediaPageTextBox, sensitivityNumericBox, refreshRateNumericBox értékét  kiovlassuk, és beszúrunk egy új sort a Pages táblába, majd meghívjuk a refreshDataGridet
+            string subscribePageName = newWikipediaPageTextBox.Text;
+            int subscribeSensitivity = (int)sensitivityNumericBox.Value;
+            int subscriberefreshRate = (int)refreshRateNumericBox.Value;
+
+            using (UserDataEntities dc = new UserDataEntities())
+            {
+                Page newPage = new Page();
+                var rowNumbers = (from page in dc.Pages select page).Count(); // Counting row numbers
+                newPage.Id = rowNumbers + 1;
+                newPage.UserName = this.userName;
+                newPage.NotificationNumber = 0;
+                newPage.WikiPage = subscribePageName;
+                newPage.Sensitivity = subscribeSensitivity;
+                newPage.RefreshRate = subscriberefreshRate;
+
+                dc.Pages.Add(newPage);
+                dc.SaveChanges();
+            }
+
+            refreshDataGrid();
+        }
+
+
         public void refreshDataGrid()
         {
             deleteDataGrid();
+            deleteUnsubscribeComboBox();
 
             using (UserDataEntities dc = new UserDataEntities())
             {
@@ -51,6 +79,11 @@ namespace wikipedia_koveto.Forms
             this.unsubscribeComboBox1.SelectedIndex = 1;
         }
 
+        private void deleteUnsubscribeComboBox()
+        {
+            this.unsubscribeComboBox1.Items.Clear();
+        }
+
         public SimpleUserForm(string userName)
         {
             InitializeComponent();
@@ -62,28 +95,16 @@ namespace wikipedia_koveto.Forms
            // modifyDataGrid();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void subscribeButton_Click(object sender, EventArgs e)
-        {
-            // newWikipediaPageTextBox, sensitivityNumericBox, refreshRateNumericBox értékét  kiovlassuk, és beszúrunk egy új sort a Pages táblába
-
-            refreshDataGrid();
-        }
-
         private void unsubscribeButton_Click(object sender, EventArgs e)
         {
-            // username és a kiválasztott wikipedia oldal függvényében kitöröljük a Pages táblából a sort
+            // username és a kiválasztott wikipedia oldal függvényében kitöröljük a Pages táblából a sort, majd meghívjuk a refreshDataGridet
 
             refreshDataGrid();
         }
 
         private void modifyButton_Click(object sender, EventArgs e)
         {
-            // username és a kiválasztott wikipedia oldal függvényében kitöröljük a Pages táblából a sort és egy új sort szúrúnk be a módosított értékeknek megfelelően
+            // username és a kiválasztott wikipedia oldal függvényében kitöröljük a Pages táblából a sort és egy új sort szúrúnk be a módosított értékeknek megfelelően, majd meghívjuk a refreshDataGridet
 
             refreshDataGrid();
         }
@@ -106,9 +127,9 @@ namespace wikipedia_koveto.Forms
                     {
                         if (page.WikiPage == selectedItem.ToString())
                         {
+                            // 
                             modifySensitivityNumericBox.Value = page.Sensitivity;
-
-                            // TODO: modifyRefreshRateNumericBox.Value-t is frissíteni, ha működni fog
+                            modifyRefreshRate.Value = page.RefreshRate;
                         }
                     }
                 }
