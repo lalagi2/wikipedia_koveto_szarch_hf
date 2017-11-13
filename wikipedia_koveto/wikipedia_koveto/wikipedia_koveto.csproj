@@ -130,6 +130,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserDataDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="StringComparer.cs" />
     <Compile Include="WikipediaAPI\WikiAPI.cs" />
     <Compile Include="WikipediaAPI\WikiAPIException.cs" />
     <EmbeddedResource Include="Forms\SimpleUserForm.resx">

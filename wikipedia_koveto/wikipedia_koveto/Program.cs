@@ -21,11 +21,15 @@ namespace wikipedia_koveto
         [STAThread]
         static void Main()
         {
+            StringComparer stringcomparer = new StringComparer();
+
+            double res = stringcomparer.CalculateSimilarity("ads", "add");
+            Console.WriteLine("Hasonlóság " + res);
 
             System.Timers.Timer timer = new System.Timers.Timer();
             timer.Interval = 1000;
             timer.Elapsed += checkForDifferencesAndSendEmail;
-            timer.Start();
+            //timer.Start();
 
             // Test email
             //EmailSender emailSender = new EmailSender();
