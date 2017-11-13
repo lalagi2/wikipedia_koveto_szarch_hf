@@ -194,11 +194,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\UserData.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\UserData_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>UserData.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Model\UserModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
