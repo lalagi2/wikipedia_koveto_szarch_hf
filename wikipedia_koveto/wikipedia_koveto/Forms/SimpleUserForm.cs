@@ -14,7 +14,7 @@ namespace wikipedia_koveto.Forms
 {
     public partial class SimpleUserForm : Form
     {
-        private string userName; // To store which admin logged in
+        private string userName; // To store which user logged in
 
         public void deleteDataGrid()
         {
@@ -29,27 +29,34 @@ namespace wikipedia_koveto.Forms
 
         private void subscribeButton_Click(object sender, EventArgs e)
         {
-            // newWikipediaPageTextBox, sensitivityNumericBox, refreshRateNumericBox értékét  kiovlassuk, és beszúrunk egy új sort a Pages táblába, majd meghívjuk a refreshDataGridet
-            string subscribePageName = newWikipediaPageTextBox.Text;
-            int subscribeSensitivity = (int)sensitivityNumericBox.Value;
-            int subscriberefreshRate = (int)refreshRateNumericBox.Value;
-
-            using (UserDataEntities dc = new UserDataEntities())
+            if (/*ennek a usernek a limitje kisebb mint ami hozzá tartozik (adatbázisból kiolvasható, akkor beszúrunk egy új feliratkozást)*/ true)
             {
-                Page newPage = new Page();
-                var rowNumbers = (from page in dc.Pages select page).Count(); // Counting row numbers
-                newPage.Id = rowNumbers + 1;
-                newPage.UserName = this.userName;
-                newPage.NotificationNumber = 0;
-                newPage.WikiPage = subscribePageName;
-                newPage.Sensitivity = subscribeSensitivity;
-                newPage.RefreshRate = subscriberefreshRate;
+                // newWikipediaPageTextBox, sensitivityNumericBox, refreshRateNumericBox értékét  kiovlassuk, és beszúrunk egy új sort a Pages táblába, majd meghívjuk a refreshDataGridet
+                string subscribePageName = newWikipediaPageTextBox.Text;
+                int subscribeSensitivity = (int)sensitivityNumericBox.Value;
+                int subscriberefreshRate = (int)refreshRateNumericBox.Value;
 
-                dc.Pages.Add(newPage);
-                dc.SaveChanges();
+                using (UserDataEntities dc = new UserDataEntities())
+                {
+                    Page newPage = new Page();
+                    var rowNumbers = (from page in dc.Pages select page).Count(); // Counting row numbers
+                    newPage.Id = rowNumbers + 1;
+                    newPage.UserName = this.userName;
+                    newPage.NotificationNumber = 0;
+                    newPage.WikiPage = subscribePageName;
+                    newPage.Sensitivity = subscribeSensitivity;
+                    newPage.RefreshRate = subscriberefreshRate;
+
+                    dc.Pages.Add(newPage);
+                    dc.SaveChanges();
+                }
+
+                refreshDataGrid();
             }
-
-            refreshDataGrid();
+            else
+            {
+                MessageBox.Show("You can not subscribe");
+            }
         }
 
 
@@ -66,10 +73,10 @@ namespace wikipedia_koveto.Forms
                              select g;
                 foreach (var g in groups)
                 {
-                    Console.WriteLine(g.Key);
+                    //Console.WriteLine(g.Key);
                     foreach (var page in g)
                     {
-                        Console.WriteLine("   {0}, {1}, {2}, {3}", page.WikiPage, page.Sensitivity, page.NotificationNumber, page.RefreshRate);
+                        //Console.WriteLine("   {0}, {1}, {2}, {3}", page.WikiPage, page.Sensitivity, page.NotificationNumber, page.RefreshRate);
                         this.unsubscribeComboBox1.Items.Add(page.WikiPage);
                         this.dataGridView1.Rows.Add(page.WikiPage, page.Sensitivity, page.NotificationNumber, page.RefreshRate);
                     }
@@ -97,7 +104,22 @@ namespace wikipedia_koveto.Forms
 
         private void unsubscribeButton_Click(object sender, EventArgs e)
         {
+            Object selectedItem = unsubscribeComboBox1.SelectedItem;
+
+            Console.WriteLine(selectedItem.ToString());
             // username és a kiválasztott wikipedia oldal függvényében kitöröljük a Pages táblából a sort, majd meghívjuk a refreshDataGridet
+            using (UserDataEntities dc = new UserDataEntities())
+            {
+                var itemToRemove = (from s1 in dc.Pages
+                            where s1.WikiPage == selectedItem.ToString() && s1.UserName == userName
+                            select s1).FirstOrDefault();
+
+                if (itemToRemove != null)
+                {
+                    dc.Pages.Remove(itemToRemove);
+                    dc.SaveChanges();
+                }
+            }
 
             refreshDataGrid();
         }
@@ -122,12 +144,11 @@ namespace wikipedia_koveto.Forms
                              select g;
                 foreach (var g in groups)
                 {
-                    Console.WriteLine(g.Key);
                     foreach (var page in g)
                     {
                         if (page.WikiPage == selectedItem.ToString())
                         {
-                            // 
+                            // Updationg the numeric boxes according to the selected subscribe
                             modifySensitivityNumericBox.Value = page.Sensitivity;
                             modifyRefreshRate.Value = page.RefreshRate;
                         }
