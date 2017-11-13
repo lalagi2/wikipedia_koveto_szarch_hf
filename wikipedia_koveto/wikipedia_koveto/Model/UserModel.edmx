@@ -13,7 +13,6 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="WikiPage" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Sensitivity" Type="int" Nullable="false" />
-          <Property Name="NotificationNumber" Type="int" Nullable="false" />
           <Property Name="RefreshRate" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
@@ -24,6 +23,8 @@
           <Property Name="UserPass" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="NotificationPerDay" Type="int" Nullable="false" />
+          <Property Name="MaxPageNumber" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_UserName">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -57,7 +58,6 @@
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="WikiPage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Sensitivity" Type="Int32" Nullable="false" />
-          <Property Name="NotificationNumber" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_UserName" FromRole="Pages" ToRole="Users" />
           <Property Name="RefreshRate" Type="Int32" Nullable="false" />
         </EntityType>
@@ -70,6 +70,8 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Pages" Relationship="Self.FK_UserName" FromRole="Users" ToRole="Pages" />
+          <Property Name="NotificationPerDay" Type="Int32" Nullable="false" />
+          <Property Name="MaxPageNumber" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_UserName">
           <End Role="Users" Type="Self.User" Multiplicity="1" />
@@ -105,13 +107,14 @@
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="WikiPage" ColumnName="WikiPage" />
                 <ScalarProperty Name="Sensitivity" ColumnName="Sensitivity" />
-                <ScalarProperty Name="NotificationNumber" ColumnName="NotificationNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="UserDataModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="MaxPageNumber" ColumnName="MaxPageNumber" />
+                <ScalarProperty Name="NotificationPerDay" ColumnName="NotificationPerDay" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserPass" ColumnName="UserPass" />
                 <ScalarProperty Name="Email" ColumnName="Email" />

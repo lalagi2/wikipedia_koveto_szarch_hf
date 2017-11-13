@@ -54,6 +54,7 @@
             this.cancelButton.TabIndex = 1;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // userNameTextBox
             // 
@@ -61,6 +62,7 @@
             this.userNameTextBox.Name = "userNameTextBox";
             this.userNameTextBox.Size = new System.Drawing.Size(188, 20);
             this.userNameTextBox.TabIndex = 2;
+            this.userNameTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.LoginForm_KeyUp);
             // 
             // passwordTextBox
             // 
@@ -69,6 +71,7 @@
             this.passwordTextBox.Size = new System.Drawing.Size(188, 20);
             this.passwordTextBox.TabIndex = 3;
             this.passwordTextBox.UseSystemPasswordChar = true;
+            this.passwordTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.LoginForm_KeyUp);
             // 
             // label1
             // 
@@ -102,6 +105,7 @@
             this.Name = "LoginForm";
             this.Text = "Wikipedia-követő";
             this.Load += new System.EventHandler(this.LoginForm_Load);
+            this.Shown += new System.EventHandler(this.LoginForm_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

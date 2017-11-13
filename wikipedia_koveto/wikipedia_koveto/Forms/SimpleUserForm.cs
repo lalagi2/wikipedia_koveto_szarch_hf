@@ -27,6 +27,12 @@ namespace wikipedia_koveto.Forms
             dataGridView1.Rows[0].Cells[1].Value = "TEST COMPLETE"; // átírja a 0. sor 1. oszlopot "TEST COMPLETE"-re
         }
 
+        protected override void OnClosed(EventArgs e)
+        {
+            Application.Exit();
+            base.OnClosed(e);
+        }
+
         private void subscribeButton_Click(object sender, EventArgs e)
         {
             if (/*ennek a usernek a limitje kisebb mint ami hozzá tartozik (adatbázisból kiolvasható, akkor beszúrunk egy új feliratkozást)*/ true)
@@ -42,7 +48,6 @@ namespace wikipedia_koveto.Forms
                     var rowNumbers = (from page in dc.Pages select page).Count(); // Counting row numbers
                     newPage.Id = rowNumbers + 1;
                     newPage.UserName = this.userName;
-                    newPage.NotificationNumber = 0;
                     newPage.WikiPage = subscribePageName;
                     newPage.Sensitivity = subscribeSensitivity;
                     newPage.RefreshRate = subscriberefreshRate;
@@ -76,9 +81,9 @@ namespace wikipedia_koveto.Forms
                     //Console.WriteLine(g.Key);
                     foreach (var page in g)
                     {
-                        //Console.WriteLine("   {0}, {1}, {2}, {3}", page.WikiPage, page.Sensitivity, page.NotificationNumber, page.RefreshRate);
+                        //Console.WriteLine("   {0}, {1}, {2}", page.WikiPage, page.Sensitivity, page.RefreshRate);
                         this.unsubscribeComboBox1.Items.Add(page.WikiPage);
-                        this.dataGridView1.Rows.Add(page.WikiPage, page.Sensitivity, page.NotificationNumber, page.RefreshRate);
+                        this.dataGridView1.Rows.Add(page.WikiPage, page.Sensitivity, page.RefreshRate);
                     }
                 }
             }
@@ -154,7 +159,6 @@ namespace wikipedia_koveto.Forms
                 var rowNumbers = (from page in dc.Pages select page).Count(); // Counting row numbers
                 newPage.Id = rowNumbers + 1;
                 newPage.UserName = this.userName;
-                newPage.NotificationNumber = 0;
                 newPage.WikiPage = subscribePageName;
                 newPage.Sensitivity = subscribeSensitivity;
                 newPage.RefreshRate = subscriberefreshRate;

@@ -23,7 +23,7 @@ namespace wikipedia_koveto
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void login()
         {
             bool loginSuccessful = false;
             using (UserDataEntities dc = new UserDataEntities())
@@ -67,8 +67,30 @@ namespace wikipedia_koveto
                 //        Console.WriteLine("   {0}, {1}, {2}", page.WikiPage, page.Sensitivity, page.NotificationNumber);
                 //    }
                 //}
-
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            login();
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void LoginForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                login();
+            }
+        }
+
+        private void LoginForm_Shown(object sender, EventArgs e)
+        {
+            userNameTextBox.Focus();
         }
     }
 }

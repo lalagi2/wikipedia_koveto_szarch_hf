@@ -21,14 +21,14 @@ namespace wikipedia_koveto
         [STAThread]
         static void Main()
         {
-            StringComparer stringcomparer = new StringComparer();
+            //StringComparer stringcomparer = new StringComparer();
 
-            double res = stringcomparer.CalculateSimilarity("ads", "add");
-            Console.WriteLine("Hasonlóság " + res);
+            //double res = stringcomparer.CalculateSimilarity("ads", "add");
+            //Console.WriteLine("Hasonlóság " + res);
 
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Interval = 1000;
-            timer.Elapsed += checkForDifferencesAndSendEmail;
+            //System.Timers.Timer timer = new System.Timers.Timer();
+            //timer.Interval = 1000;
+            //timer.Elapsed += checkForDifferencesAndSendEmail;
             //timer.Start();
 
             // Test email
@@ -37,29 +37,29 @@ namespace wikipedia_koveto
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.SimpleUserForm("User1"));
+            Application.Run(new LoginForm());
 
             // Test Database
-            using (UserDataEntities dc = new UserDataEntities())
-            {
-                var users = from user in dc.Users select new { user.UserName, user.Email };
-                foreach (var user in users)
-                {
-                    Console.WriteLine("( " + user.UserName + ", " + user.Email + " )");
-                }
+            //using (UserDataEntities dc = new UserDataEntities())
+            //{
+            //    var users = from user in dc.Users select new { user.UserName, user.Email };
+            //    foreach (var user in users)
+            //    {
+            //        Console.WriteLine("( " + user.UserName + ", " + user.Email + " )");
+            //    }
 
-                var groups = from page in dc.Pages where page.UserName.Contains("User1")
-                            group page by page.UserName into g
-                            select g;
-                foreach (var g in groups)
-                {
-                    Console.WriteLine(g.Key);
-                    foreach (var page in g)
-                    {
-                        Console.WriteLine("   {0}, {1}, {2}, {3}", page.WikiPage, page.Sensitivity, page.NotificationNumber, page.RefreshRate);
-                    }
-                }
-            }
+            //    var groups = from page in dc.Pages where page.UserName.Contains("User1")
+            //                group page by page.UserName into g
+            //                select g;
+            //    foreach (var g in groups)
+            //    {
+            //        Console.WriteLine(g.Key);
+            //        foreach (var page in g)
+            //        {
+            //            Console.WriteLine("   {0}, {1}, {2}", page.WikiPage, page.Sensitivity, page.RefreshRate);
+            //        }
+            //    }
+            //}
         }
     }
 }

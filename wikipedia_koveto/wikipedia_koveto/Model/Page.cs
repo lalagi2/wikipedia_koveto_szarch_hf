@@ -18,7 +18,6 @@ namespace wikipedia_koveto.Model
         public string UserName { get; set; }
         public string WikiPage { get; set; }
         public int Sensitivity { get; set; }
-        public int NotificationNumber { get; set; }
         public int RefreshRate { get; set; }
     
         public virtual User User { get; set; }

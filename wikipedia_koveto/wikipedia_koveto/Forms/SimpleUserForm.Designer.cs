@@ -36,10 +36,6 @@
             this.userDataDataSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.userDataDataSetBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.WikipediaPage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sensitivity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NotificationNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RefreshRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.sensitivityNumericBox = new System.Windows.Forms.NumericUpDown();
             this.refreshRateNumericBox = new System.Windows.Forms.NumericUpDown();
@@ -56,6 +52,9 @@
             this.modifyRefreshRate = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.WikipediaPage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sensitivity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RefreshRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.userDataDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDataDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDataDataSetBindingSource1)).BeginInit();
@@ -114,34 +113,11 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.WikipediaPage,
             this.Sensitivity,
-            this.NotificationNumber,
             this.RefreshRate});
             this.dataGridView1.Location = new System.Drawing.Point(32, 401);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(617, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(459, 150);
             this.dataGridView1.TabIndex = 2;
-            // 
-            // WikipediaPage
-            // 
-            this.WikipediaPage.HeaderText = "WikipediaPage";
-            this.WikipediaPage.Name = "WikipediaPage";
-            this.WikipediaPage.Width = 200;
-            // 
-            // Sensitivity
-            // 
-            this.Sensitivity.HeaderText = "Sensitivity";
-            this.Sensitivity.Name = "Sensitivity";
-            // 
-            // NotificationNumber
-            // 
-            this.NotificationNumber.HeaderText = "Notification Number Today";
-            this.NotificationNumber.Name = "NotificationNumber";
-            this.NotificationNumber.Width = 157;
-            // 
-            // RefreshRate
-            // 
-            this.RefreshRate.HeaderText = "Refresh Rate";
-            this.RefreshRate.Name = "RefreshRate";
             // 
             // label1
             // 
@@ -159,6 +135,11 @@
             this.sensitivityNumericBox.Name = "sensitivityNumericBox";
             this.sensitivityNumericBox.Size = new System.Drawing.Size(51, 20);
             this.sensitivityNumericBox.TabIndex = 4;
+            this.sensitivityNumericBox.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // refreshRateNumericBox
             // 
@@ -166,6 +147,11 @@
             this.refreshRateNumericBox.Name = "refreshRateNumericBox";
             this.refreshRateNumericBox.Size = new System.Drawing.Size(67, 20);
             this.refreshRateNumericBox.TabIndex = 5;
+            this.refreshRateNumericBox.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
             // 
             // newWikipediaPageTextBox
             // 
@@ -282,6 +268,22 @@
             this.label7.TabIndex = 18;
             this.label7.Text = "Sensitivity";
             // 
+            // WikipediaPage
+            // 
+            this.WikipediaPage.HeaderText = "WikipediaPage";
+            this.WikipediaPage.Name = "WikipediaPage";
+            this.WikipediaPage.Width = 200;
+            // 
+            // Sensitivity
+            // 
+            this.Sensitivity.HeaderText = "Sensitivity";
+            this.Sensitivity.Name = "Sensitivity";
+            // 
+            // RefreshRate
+            // 
+            this.RefreshRate.HeaderText = "Refresh Rate";
+            this.RefreshRate.Name = "RefreshRate";
+            // 
             // SimpleUserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -331,10 +333,6 @@
         private System.Windows.Forms.BindingSource userDataDataSetBindingSource1;
         private System.Windows.Forms.BindingSource userDataDataSetBindingSource2;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WikipediaPage;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Sensitivity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NotificationNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RefreshRate;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown sensitivityNumericBox;
         private System.Windows.Forms.NumericUpDown refreshRateNumericBox;
@@ -351,5 +349,8 @@
         private System.Windows.Forms.NumericUpDown modifyRefreshRate;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WikipediaPage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Sensitivity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RefreshRate;
     }
 }
