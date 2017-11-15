@@ -19,6 +19,10 @@ namespace wikipedia_koveto.Model
         public string WikiPage { get; set; }
         public int Sensitivity { get; set; }
         public int RefreshRate { get; set; }
+        public Nullable<System.DateTime> LastNotified { get; set; }
+        public Nullable<System.DateTime> LastRefreshed { get; set; }
+        public int Notified { get; set; }
+        public int LastRevision { get; set; }
     
         public virtual User User { get; set; }
     }

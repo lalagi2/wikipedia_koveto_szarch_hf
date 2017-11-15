@@ -14,6 +14,10 @@
           <Property Name="WikiPage" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Sensitivity" Type="int" Nullable="false" />
           <Property Name="RefreshRate" Type="int" Nullable="false" />
+          <Property Name="LastNotified" Type="datetime" />
+          <Property Name="LastRefreshed" Type="datetime" />
+          <Property Name="Notified" Type="int" Nullable="false" />
+          <Property Name="LastRevision" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -60,6 +64,10 @@
           <Property Name="Sensitivity" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_UserName" FromRole="Pages" ToRole="Users" />
           <Property Name="RefreshRate" Type="Int32" Nullable="false" />
+          <Property Name="LastNotified" Type="DateTime" Precision="3" />
+          <Property Name="LastRefreshed" Type="DateTime" Precision="3" />
+          <Property Name="Notified" Type="Int32" Nullable="false" />
+          <Property Name="LastRevision" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -102,6 +110,10 @@
           <EntitySetMapping Name="Pages">
             <EntityTypeMapping TypeName="UserDataModel.Page">
               <MappingFragment StoreEntitySet="Pages">
+                <ScalarProperty Name="LastRevision" ColumnName="LastRevision" />
+                <ScalarProperty Name="Notified" ColumnName="Notified" />
+                <ScalarProperty Name="LastRefreshed" ColumnName="LastRefreshed" />
+                <ScalarProperty Name="LastNotified" ColumnName="LastNotified" />
                 <ScalarProperty Name="RefreshRate" ColumnName="RefreshRate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />

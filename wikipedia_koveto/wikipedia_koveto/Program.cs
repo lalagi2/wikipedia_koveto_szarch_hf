@@ -5,6 +5,7 @@ using System.Data.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using wikipedia_koveto.Model;
+using System.Threading;
 
 namespace wikipedia_koveto
 {
@@ -35,9 +36,16 @@ namespace wikipedia_koveto
             //EmailSender emailSender = new EmailSender();
             //emailSender.sendEmail("tothlajosg@gmail.com", "toth lajos", "subject", "uzenet");
 
+            var poller = new WikipediaPoller();
+            var pollerThread = new Thread(() => poller.poll());
+            pollerThread.Start();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginForm());
+
+            poller.stop();
+            pollerThread.Join();
 
             // Test Database
             //using (UserDataEntities dc = new UserDataEntities())

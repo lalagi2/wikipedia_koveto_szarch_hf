@@ -82,7 +82,7 @@ namespace wikipedia_koveto.WikipediaAPI
             // revId: the first revision id, we interested in
 
             string rvendid = revId > -1 ? "&rvendid=" + revId : "";
-            Console.WriteLine(apiLink + "&prop=revisions&titles=" + title + revisionProperties + rvendid + format + encoding);
+            //Console.WriteLine(apiLink + "&prop=revisions&titles=" + title + revisionProperties + rvendid + format + encoding);
             string result = client.DownloadString(apiLink + "&titles=" + title + revisionProperties + rvendid + format + encoding);
             
             var revisionsDict = JSONUtils.SerializeRevisions(result);
