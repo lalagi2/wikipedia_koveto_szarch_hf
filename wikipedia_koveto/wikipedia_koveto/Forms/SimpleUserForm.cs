@@ -45,8 +45,6 @@ namespace wikipedia_koveto.Forms
                 using (UserDataEntities dc = new UserDataEntities())
                 {
                     Page newPage = new Page();
-                    var rowNumbers = (from page in dc.Pages select page).Count(); // Counting row numbers
-                    newPage.Id = rowNumbers + 1;
                     newPage.UserName = this.userName;
                     newPage.WikiPage = subscribePageName;
                     newPage.Sensitivity = subscribeSensitivity;
@@ -88,7 +86,7 @@ namespace wikipedia_koveto.Forms
                 }
             }
 
-            this.unsubscribeComboBox1.SelectedIndex = 1;
+            this.unsubscribeComboBox1.SelectedIndex = 0;
         }
 
         private void deleteUnsubscribeComboBox()
@@ -156,8 +154,6 @@ namespace wikipedia_koveto.Forms
             using (UserDataEntities dc = new UserDataEntities())
             {
                 Page newPage = new Page();
-                var rowNumbers = (from page in dc.Pages select page).Count(); // Counting row numbers
-                newPage.Id = rowNumbers + 1;
                 newPage.UserName = this.userName;
                 newPage.WikiPage = subscribePageName;
                 newPage.Sensitivity = subscribeSensitivity;
