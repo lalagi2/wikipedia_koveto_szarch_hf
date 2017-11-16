@@ -48,7 +48,6 @@ namespace wikipedia_koveto.Forms
             using (UserDataEntities dc = new UserDataEntities())
             {
                 Object selecteduserName = usersComboBox.SelectedItem;
-                Console.WriteLine(selecteduserName.ToString());
                 var users = from user in dc.Users where user.UserName == selecteduserName.ToString()
                             select user;
                 foreach (var user in users)
