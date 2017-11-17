@@ -46,6 +46,12 @@
             this.parentText = new System.Windows.Forms.TextBox();
             this.revisionList = new System.Windows.Forms.ListBox();
             this.revisionLabel = new System.Windows.Forms.Label();
+            this.diff_text = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.diff_size_text = new System.Windows.Forms.TextBox();
+            this.to_text = new System.Windows.Forms.TextBox();
+            this.from_text = new System.Windows.Forms.TextBox();
+            this.get_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // sourceButton
@@ -187,11 +193,65 @@
             this.revisionLabel.TabIndex = 16;
             this.revisionLabel.Text = "Revisions";
             // 
+            // diff_text
+            // 
+            this.diff_text.Location = new System.Drawing.Point(787, 65);
+            this.diff_text.Name = "diff_text";
+            this.diff_text.Size = new System.Drawing.Size(343, 299);
+            this.diff_text.TabIndex = 17;
+            this.diff_text.Text = "";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(787, 398);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Diff Size:";
+            // 
+            // diff_size_text
+            // 
+            this.diff_size_text.Location = new System.Drawing.Point(842, 395);
+            this.diff_size_text.Name = "diff_size_text";
+            this.diff_size_text.Size = new System.Drawing.Size(163, 20);
+            this.diff_size_text.TabIndex = 19;
+            // 
+            // to_text
+            // 
+            this.to_text.Location = new System.Drawing.Point(977, 14);
+            this.to_text.Name = "to_text";
+            this.to_text.Size = new System.Drawing.Size(153, 20);
+            this.to_text.TabIndex = 20;
+            // 
+            // from_text
+            // 
+            this.from_text.Location = new System.Drawing.Point(787, 14);
+            this.from_text.Name = "from_text";
+            this.from_text.Size = new System.Drawing.Size(146, 20);
+            this.from_text.TabIndex = 21;
+            // 
+            // get_button
+            // 
+            this.get_button.Location = new System.Drawing.Point(1021, 393);
+            this.get_button.Name = "get_button";
+            this.get_button.Size = new System.Drawing.Size(96, 23);
+            this.get_button.TabIndex = 22;
+            this.get_button.Text = "Get Diff";
+            this.get_button.UseVisualStyleBackColor = true;
+            this.get_button.Click += new System.EventHandler(this.get_button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 433);
+            this.ClientSize = new System.Drawing.Size(1152, 433);
+            this.Controls.Add(this.get_button);
+            this.Controls.Add(this.from_text);
+            this.Controls.Add(this.to_text);
+            this.Controls.Add(this.diff_size_text);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.diff_text);
             this.Controls.Add(this.revisionLabel);
             this.Controls.Add(this.revisionList);
             this.Controls.Add(this.parentText);
@@ -235,6 +295,12 @@
         private System.Windows.Forms.TextBox parentText;
         private System.Windows.Forms.ListBox revisionList;
         private System.Windows.Forms.Label revisionLabel;
+        private System.Windows.Forms.RichTextBox diff_text;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox diff_size_text;
+        private System.Windows.Forms.TextBox to_text;
+        private System.Windows.Forms.TextBox from_text;
+        private System.Windows.Forms.Button get_button;
     }
 }
 

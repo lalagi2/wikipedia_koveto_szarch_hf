@@ -62,5 +62,16 @@ namespace wikipedia_koveto
         {
             Application.Exit();
         }
+
+        private void get_button_Click(object sender, EventArgs e)
+        {
+            int fromRev = int.Parse(from_text.Text);
+            int toRev = int.Parse(to_text.Text);
+
+
+            WikiAPI api = new WikiAPI();
+            diff_size_text.Text = api.GetDiff(fromRev, toRev).ToString();
+            diff_text.Text = api.LastDiff;
+        }
     }
 }

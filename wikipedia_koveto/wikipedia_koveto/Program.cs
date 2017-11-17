@@ -42,7 +42,7 @@ namespace wikipedia_koveto
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            Application.Run(new Form1());
 
             poller.stop();
             pollerThread.Join();

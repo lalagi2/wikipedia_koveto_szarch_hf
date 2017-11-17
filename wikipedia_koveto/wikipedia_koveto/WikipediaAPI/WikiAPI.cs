@@ -11,10 +11,14 @@ namespace wikipedia_koveto.WikipediaAPI
     {
         public static object GetValueFromJSONObject(object obj, string key)
         {
+            if (!((Dictionary<string, object>)obj).ContainsKey(key))
+            {
+                throw new WikiAPIException("Wiki result JSON don't have key: " + key);
+            }
             return ((Dictionary<string, object>)obj)[key];
         }
 
-        public static Array SerializeRevisions(string obj)
+        public static Array DeserializeRevisions(string obj)
         {
             var serializer = new JavaScriptSerializer();
             var resultDict = serializer.DeserializeObject(obj);
@@ -28,6 +32,15 @@ namespace wikipedia_koveto.WikipediaAPI
                 throw new WikiAPIException("Missing page named " + page["title"] + ".");
 
             return (Array)GetValueFromJSONObject(page, "revisions");
+        }
+
+        public static string DeserializeCompare(string obj)
+        {
+            var serializer = new JavaScriptSerializer();
+            var resultDict = serializer.DeserializeObject(obj);
+
+            var compare = GetValueFromJSONObject(resultDict, "compare");
+            return (string)GetValueFromJSONObject(compare, "*");
         }
     }
 
@@ -50,7 +63,9 @@ namespace wikipedia_koveto.WikipediaAPI
 
     class WikiAPI
     {
-        private const string apiLink = "https://en.wikipedia.org/w/api.php?action=query&prop=revisions";
+        private const string apiLink = "https://en.wikipedia.org/w/api.php?";
+        private const string apiQueryLink = apiLink + "action=query&prop=revisions";
+        private const string apiCompareLink = apiLink + "action=compare";
         private const string encoding = "&utf8=";
         private const string format = "&format=json";
         private string revisionProperties = "&rvprop=ids|size|timestamp&rvlimit=max&rvdir=older";
@@ -69,10 +84,42 @@ namespace wikipedia_koveto.WikipediaAPI
             // if revId not -1, then search by revId, otherwise search by title
 
             string cond = revId > -1 ? "&revids=" + revId : "&titles=" + title;
-            string result = client.DownloadString(apiLink + cond + contentProperties + format + encoding);
-            var revisions = JSONUtils.SerializeRevisions(result);
+            string result = client.DownloadString(apiQueryLink + cond + contentProperties + format + encoding);
+            try
+            {
+                var revisions = JSONUtils.DeserializeRevisions(result);
+                return (string)((Dictionary<string, object>)revisions.GetValue(0))["*"];
+            }
+            catch (WikiAPIException exp)
+            {
+                return "Wrong wikipedia page.";
+            }
+        }
 
-            return (string)((Dictionary<string, object>)revisions.GetValue(0))["*"];
+        public string LastDiff { get; set; }
+
+        public int GetDiff(int fromRev, int torev)
+        {
+            // returns the diff of the page between to revisions
+
+            if (fromRev <= 0)
+            {
+                // There is no revision yet
+                return int.MaxValue;
+            }
+
+            string url = apiCompareLink + "&fromrev=" + fromRev + "&torev=" + torev + format + encoding;
+            string result = client.DownloadString(url);
+                
+            try
+            {
+                LastDiff = JSONUtils.DeserializeCompare(result);
+                return LastDiff.Length;
+            }
+            catch (WikiAPIException exp)
+            {
+                return -1;
+            }
         }
 
         public List<RevisionData> GetRevisions(string title, int revId = -1)
@@ -83,23 +130,28 @@ namespace wikipedia_koveto.WikipediaAPI
 
             string rvendid = revId > -1 ? "&rvendid=" + revId : "";
             //Console.WriteLine(apiLink + "&prop=revisions&titles=" + title + revisionProperties + rvendid + format + encoding);
-            string url = apiLink + "&titles=" + title + revisionProperties + rvendid + format + encoding;
+            string url = apiQueryLink + "&titles=" + title + revisionProperties + rvendid + format + encoding;
             string result = client.DownloadString(url);
             
-            var revisionsDict = JSONUtils.SerializeRevisions(result);
-            
             var revisions = new List<RevisionData>();
-
-            foreach (var entry in revisionsDict)
+            try
             {
-                int eRevId = (int)JSONUtils.GetValueFromJSONObject(entry, "revid");
-                int eParentId = (int)JSONUtils.GetValueFromJSONObject(entry, "parentid");
-                int eSize = (int)JSONUtils.GetValueFromJSONObject(entry, "size");
-                string eTimestamp = (string)JSONUtils.GetValueFromJSONObject(entry, "timestamp");
-                revisions.Add(new RevisionData(eRevId, eParentId, eSize, DateTime.ParseExact(eTimestamp, "yyyy-MM-ddTHH:mm:ssZ", System.Globalization.CultureInfo.InvariantCulture)));
-            }
+                var revisionsDict = JSONUtils.DeserializeRevisions(result);
+                foreach (var entry in revisionsDict)
+                {
+                    int eRevId = (int)JSONUtils.GetValueFromJSONObject(entry, "revid");
+                    int eParentId = (int)JSONUtils.GetValueFromJSONObject(entry, "parentid");
+                    int eSize = (int)JSONUtils.GetValueFromJSONObject(entry, "size");
+                    string eTimestamp = (string)JSONUtils.GetValueFromJSONObject(entry, "timestamp");
+                    revisions.Add(new RevisionData(eRevId, eParentId, eSize, DateTime.ParseExact(eTimestamp, "yyyy-MM-ddTHH:mm:ssZ", System.Globalization.CultureInfo.InvariantCulture)));
+                }
 
-            return revisions;
+                return revisions;
+            }
+            catch (WikiAPIException exp)
+            {
+                    return revisions;
+            }
         }
     }
 }
