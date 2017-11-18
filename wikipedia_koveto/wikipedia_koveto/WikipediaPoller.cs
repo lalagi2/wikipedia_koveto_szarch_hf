@@ -7,6 +7,7 @@ using System.Threading;
 using wikipedia_koveto.Model;
 using wikipedia_koveto.WikipediaAPI;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace wikipedia_koveto
 {
@@ -194,28 +195,43 @@ namespace wikipedia_koveto
             // First check revID
             WikiAPI api = new WikiAPI();
             var revID = api.GetRevisions(data.WikiPage, data.LastRevision).OrderBy(x => x.RevId).Last().RevId;
+            var revID2 = api.GetRevisions(data.WikiPage).ToList();
+
+            int currentPageID = revID2.Last().RevId;
+            int lastPageID = revID2[revID2.Count - 15].RevId;
+            string currentPageContent = api.GetContent(data.WikiPage, currentPageID);
+            string prevPageContent = api.GetContent(data.WikiPage, lastPageID);
+
+            MatchCollection words1 = Regex.Matches(currentPageContent, @"\b(\w+)\b");
+            MatchCollection words2 = Regex.Matches(prevPageContent, @"\b(\w+)\b");
+
+            var hs1 = new HashSet<string>(words1.Cast<Match>().Select(m => m.Value));
+            var hs2 = new HashSet<string>(words2.Cast<Match>().Select(m => m.Value));
+
+            hs2.ExceptWith(hs1);
+            int newVersionExtraWordCounter = hs2.Count;
+            hs1.ExceptWith(hs2);
+            int prevVersionExtraWordCounter = hs1.Count;
+
             if (data.LastRevision == -1)
             {
                 // First check send email
                 sendEmail(data);
                 refreshDatabase(data, true, revID);
             }
-            else if (revID > data.LastRevision)
+
+            // Calculate diff, if bigger then sensititvity, then send email
+            if (newVersionExtraWordCounter + prevVersionExtraWordCounter > data.Sensitivity)
             {
-                // Calculate diff, if bigger then sensititvity, then send email
-                StringComparer stringcomparer = new StringComparer();
-                double diff = stringcomparer.CalculateSimilarity("ads", "add");
-                if (diff > data.Sensitivity)
-                {
-                    sendEmail(data);
-                    refreshDatabase(data, true, revID);
-                }
-                else
-                {
-                    refreshDatabase(data);
-                }
+                sendEmail(data);
+                refreshDatabase(data, true, revID);
+            }
+            else
+            {
+                refreshDatabase(data);
             }
         }
+
 
         public void stop()
         {
