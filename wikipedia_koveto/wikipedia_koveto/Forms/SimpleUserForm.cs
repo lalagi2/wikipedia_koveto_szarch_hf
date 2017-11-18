@@ -35,15 +35,18 @@ namespace wikipedia_koveto.Forms
 
         private void subscribeButton_Click(object sender, EventArgs e)
         {
-            if (/*ennek a usernek a limitje kisebb mint ami hozzá tartozik (adatbázisból kiolvasható, akkor beszúrunk egy új feliratkozást)*/ true)
+            using (UserDataEntities dc = new UserDataEntities())
             {
-                // newWikipediaPageTextBox, sensitivityNumericBox, refreshRateNumericBox értékét  kiovlassuk, és beszúrunk egy új sort a Pages táblába, majd meghívjuk a refreshDataGridet
-                string subscribePageName = newWikipediaPageTextBox.Text;
-                int subscribeSensitivity = (int)sensitivityNumericBox.Value;
-                int subscriberefreshRate = (int)refreshRateNumericBox.Value;
-
-                using (UserDataEntities dc = new UserDataEntities())
+                var users = from user in dc.Users where user.UserName == userName select user;
+                var userPages = from pages in dc.Pages where pages.UserName == userName select pages;
+                var count = userPages.Count();
+                if (users.FirstOrDefault().MaxPageNumber > count)
                 {
+                    // newWikipediaPageTextBox, sensitivityNumericBox, refreshRateNumericBox értékét  kiovlassuk, és beszúrunk egy új sort a Pages táblába, majd meghívjuk a refreshDataGridet
+                    string subscribePageName = newWikipediaPageTextBox.Text;
+                    int subscribeSensitivity = (int)sensitivityNumericBox.Value;
+                    int subscriberefreshRate = (int)refreshRateNumericBox.Value;
+
                     Page newPage = new Page();
                     newPage.UserName = this.userName;
                     newPage.WikiPage = subscribePageName;
@@ -52,14 +55,15 @@ namespace wikipedia_koveto.Forms
 
                     dc.Pages.Add(newPage);
                     dc.SaveChanges();
-                }
 
-                refreshDataGrid();
+                    refreshDataGrid();
+                }
+                else
+                {
+                    MessageBox.Show("You can not subscribe");
+                }
             }
-            else
-            {
-                MessageBox.Show("You can not subscribe");
-            }
+
         }
 
 

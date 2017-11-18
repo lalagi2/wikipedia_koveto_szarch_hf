@@ -198,7 +198,7 @@ namespace wikipedia_koveto
             var revID2 = api.GetRevisions(data.WikiPage).ToList();
 
             int currentPageID = revID2.Last().RevId;
-            int lastPageID = revID2[revID2.Count - 15].RevId;
+            int lastPageID = revID2[revID2.Count - 1].RevId;
             string currentPageContent = api.GetContent(data.WikiPage, currentPageID);
             string prevPageContent = api.GetContent(data.WikiPage, lastPageID);
 
