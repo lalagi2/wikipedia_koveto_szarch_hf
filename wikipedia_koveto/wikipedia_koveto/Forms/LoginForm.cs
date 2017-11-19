@@ -34,20 +34,10 @@ namespace wikipedia_koveto
                     if (userNameTextBox.Text == user.UserName && passwordTextBox.Text == user.UserPass)
                     {
                         loginSuccessful = true;
-                        if (user.IsAdmin)
-                        {
-                            // Elugrunk az admin windowra
-                            this.Hide();
-                            Forms.AdminForm adminForm = new Forms.AdminForm(user.UserName);
-                            adminForm.Show();
-                        }
-                        else
-                        {
-                            // Elugrunk a sima wiondowra
-                            this.Hide();
-                            Forms.SimpleUserForm userForm = new Forms.SimpleUserForm(user.UserName);
-                            userForm.Show();
-                        }
+                        // Elugrunk az user windowra
+                        this.Hide();
+                        Forms.SimpleUserForm userForm = new Forms.SimpleUserForm(user.UserName, user.IsAdmin);
+                        userForm.Show();
                     }
                 }
 

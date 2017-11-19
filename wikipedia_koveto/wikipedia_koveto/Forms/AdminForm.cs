@@ -17,7 +17,6 @@ namespace wikipedia_koveto.Forms
 
         protected override void OnClosed(EventArgs e)
         {
-            Application.Exit();
             base.OnClosed(e);
         }
 
@@ -50,10 +49,15 @@ namespace wikipedia_koveto.Forms
                 Object selecteduserName = usersComboBox.SelectedItem;
                 var users = from user in dc.Users where user.UserName == selecteduserName.ToString()
                             select user;
+
                 foreach (var user in users)
                 {
                     user.MaxPageNumber = (int)modifySubscriptionNumericBox.Value;
                     user.NotificationPerDay = (int)modifyRefreshRate.Value;
+                    if(userName != user.UserName || user.IsAdmin == admin_check.Checked)
+                        user.IsAdmin = admin_check.Checked;
+                    else
+                        MessageBox.Show("Cannot change admin permission for yourself!");
                 }
 
                 try
@@ -74,10 +78,11 @@ namespace wikipedia_koveto.Forms
             {
                 var selectedUser = from user in dc.Users
                            where user.UserName == selected
-                           select new { user.MaxPageNumber, user.NotificationPerDay };
+                           select new { user.MaxPageNumber, user.NotificationPerDay, user.IsAdmin };
 
                 modifyRefreshRate.Value = selectedUser.FirstOrDefault().NotificationPerDay;
                 modifySubscriptionNumericBox.Value = selectedUser.FirstOrDefault().MaxPageNumber;
+                admin_check.Checked = selectedUser.FirstOrDefault().IsAdmin;
             }
         }
 

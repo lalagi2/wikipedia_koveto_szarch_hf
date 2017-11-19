@@ -36,6 +36,8 @@
             this.modifyRefreshRate = new System.Windows.Forms.NumericUpDown();
             this.modifySubscriptionNumericBox = new System.Windows.Forms.NumericUpDown();
             this.modifyButton = new System.Windows.Forms.Button();
+            this.admin_label = new System.Windows.Forms.Label();
+            this.admin_check = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.modifyRefreshRate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.modifySubscriptionNumericBox)).BeginInit();
             this.SuspendLayout();
@@ -103,7 +105,7 @@
             // 
             // modifyButton
             // 
-            this.modifyButton.Location = new System.Drawing.Point(17, 218);
+            this.modifyButton.Location = new System.Drawing.Point(17, 249);
             this.modifyButton.Name = "modifyButton";
             this.modifyButton.Size = new System.Drawing.Size(102, 23);
             this.modifyButton.TabIndex = 19;
@@ -111,11 +113,31 @@
             this.modifyButton.UseVisualStyleBackColor = true;
             this.modifyButton.Click += new System.EventHandler(this.modifyButton_Click);
             // 
+            // admin_label
+            // 
+            this.admin_label.AutoSize = true;
+            this.admin_label.Location = new System.Drawing.Point(16, 202);
+            this.admin_label.Name = "admin_label";
+            this.admin_label.Size = new System.Drawing.Size(36, 13);
+            this.admin_label.TabIndex = 25;
+            this.admin_label.Text = "Admin";
+            // 
+            // admin_check
+            // 
+            this.admin_check.AutoSize = true;
+            this.admin_check.Location = new System.Drawing.Point(245, 202);
+            this.admin_check.Name = "admin_check";
+            this.admin_check.Size = new System.Drawing.Size(15, 14);
+            this.admin_check.TabIndex = 27;
+            this.admin_check.UseVisualStyleBackColor = true;
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 260);
+            this.ClientSize = new System.Drawing.Size(312, 295);
+            this.Controls.Add(this.admin_check);
+            this.Controls.Add(this.admin_label);
             this.Controls.Add(this.subsLabel);
             this.Controls.Add(this.refreshLabel);
             this.Controls.Add(this.modifyRefreshRate);
@@ -143,5 +165,7 @@
         private System.Windows.Forms.NumericUpDown modifyRefreshRate;
         private System.Windows.Forms.NumericUpDown modifySubscriptionNumericBox;
         private System.Windows.Forms.Button modifyButton;
+        private System.Windows.Forms.Label admin_label;
+        private System.Windows.Forms.CheckBox admin_check;
     }
 }

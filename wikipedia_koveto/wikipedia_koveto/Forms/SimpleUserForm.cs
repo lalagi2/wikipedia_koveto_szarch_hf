@@ -15,6 +15,7 @@ namespace wikipedia_koveto.Forms
     public partial class SimpleUserForm : Form
     {
         private string userName; // To store which user logged in
+        private bool isAdmin;
 
         public void deleteDataGrid()
         {
@@ -89,8 +90,8 @@ namespace wikipedia_koveto.Forms
                     }
                 }
             }
-
-            this.unsubscribeComboBox1.SelectedIndex = 0;
+            if(unsubscribeComboBox1.Items.Count > 0)
+                this.unsubscribeComboBox1.SelectedIndex = 0;
         }
 
         private void deleteUnsubscribeComboBox()
@@ -98,12 +99,17 @@ namespace wikipedia_koveto.Forms
             this.unsubscribeComboBox1.Items.Clear();
         }
 
-        public SimpleUserForm(string userName)
+        public SimpleUserForm(string userName, bool isAdmin = false)
         {
             InitializeComponent();
 
             this.userName = userName;
             WelcomeLabel.Text += " " + userName + "!";
+
+            if (isAdmin)
+                admin_button.Visible = true;
+            else
+                admin_button.Visible = false;
 
             refreshDataGrid();
            // modifyDataGrid();
@@ -162,6 +168,7 @@ namespace wikipedia_koveto.Forms
                 newPage.WikiPage = subscribePageName;
                 newPage.Sensitivity = subscribeSensitivity;
                 newPage.RefreshRate = subscriberefreshRate;
+                newPage.LastRevision = -1;
 
                 dc.Pages.Add(newPage);
                 dc.SaveChanges();
@@ -192,6 +199,19 @@ namespace wikipedia_koveto.Forms
                             modifyRefreshRate.Value = page.RefreshRate;
                         }
                     }
+                }
+            }
+        }
+
+        private void admin_button_Click(object sender, EventArgs e)
+        {
+            using (UserDataEntities dc = new UserDataEntities())
+            {
+                var user_admin = from user in dc.Users where user.UserName == userName select new { user.IsAdmin };
+                if (user_admin.FirstOrDefault().IsAdmin)
+                {
+                    Forms.AdminForm adminForm = new Forms.AdminForm(userName);
+                    adminForm.Show();
                 }
             }
         }

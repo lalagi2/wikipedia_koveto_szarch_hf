@@ -192,15 +192,28 @@ namespace wikipedia_koveto
 
         private void checkAndUpdateWikiPage(PageReadData data)
         {
+
             // First check revID
             WikiAPI api = new WikiAPI();
-            var revID = api.GetRevisions(data.WikiPage, data.LastRevision).OrderBy(x => x.RevId).Last().RevId;
-            var revID2 = api.GetRevisions(data.WikiPage).ToList();
+            var revIDs = api.GetRevisions(data.WikiPage, data.LastRevision).OrderBy(x => x.RevId).ToList();
+            if (revIDs.Count == 0)
+            {
+                // No newer revID
+                return;
+            }
 
-            int currentPageID = revID2.Last().RevId;
-            int lastPageID = revID2[revID2.Count - 1].RevId;
-            string currentPageContent = api.GetContent(data.WikiPage, currentPageID);
-            string prevPageContent = api.GetContent(data.WikiPage, lastPageID);
+            var currentRevID = revIDs.Last().RevId;
+
+            if (data.LastRevision == -1)
+            {
+                // First check send email
+                sendEmail(data);
+                refreshDatabase(data, true, currentRevID);
+                return;
+            }
+            
+            string currentPageContent = api.GetContent(data.WikiPage, currentRevID);
+            string prevPageContent = api.GetContent(data.WikiPage, data.LastRevision);
 
             MatchCollection words1 = Regex.Matches(currentPageContent, @"\b(\w+)\b");
             MatchCollection words2 = Regex.Matches(prevPageContent, @"\b(\w+)\b");
@@ -213,18 +226,11 @@ namespace wikipedia_koveto
             hs1.ExceptWith(hs2);
             int prevVersionExtraWordCounter = hs1.Count;
 
-            if (data.LastRevision == -1)
-            {
-                // First check send email
-                sendEmail(data);
-                refreshDatabase(data, true, revID);
-            }
-
             // Calculate diff, if bigger then sensititvity, then send email
             if (newVersionExtraWordCounter + prevVersionExtraWordCounter > data.Sensitivity)
             {
                 sendEmail(data);
-                refreshDatabase(data, true, revID);
+                refreshDatabase(data, true, currentRevID);
             }
             else
             {
