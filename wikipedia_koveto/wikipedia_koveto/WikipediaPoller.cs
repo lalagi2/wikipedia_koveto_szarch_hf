@@ -199,7 +199,7 @@ namespace wikipedia_koveto
             // First check revID
             WikiAPI api = new WikiAPI();
             var revIDs = api.GetRevisions(data.WikiPage, data.LastRevision).OrderBy(x => x.RevId).ToList();
-            if (revIDs.Count == 0)
+            if (revIDs.Count <= 1)
             {
                 // No newer revID
                 return;
@@ -223,11 +223,14 @@ namespace wikipedia_koveto
 
             var hs1 = new HashSet<string>(words1.Cast<Match>().Select(m => m.Value));
             var hs2 = new HashSet<string>(words2.Cast<Match>().Select(m => m.Value));
-            
-            hs2.ExceptWith(hs1);
-            int prevVersionExtraWordCounter = hs2.Count;
-            hs1.ExceptWith(hs2);
-            int newVersionExtraWordCounter = hs1.Count;
+
+            var hs1_mod = new HashSet<string>(hs1);
+            var hs2_mod = new HashSet<string>(hs2);
+
+            hs2_mod.ExceptWith(hs1);
+            int prevVersionExtraWordCounter = hs2_mod.Count;
+            hs1_mod.ExceptWith(hs2);
+            int newVersionExtraWordCounter = hs1_mod.Count;
 
             // Calculate diff, if bigger then sensititvity, then send email
             if (newVersionExtraWordCounter + prevVersionExtraWordCounter > data.Sensitivity)
