@@ -244,7 +244,6 @@ namespace wikipedia_koveto
             }
         }
 
-
         public void stop()
         {
             lock (thisLock)

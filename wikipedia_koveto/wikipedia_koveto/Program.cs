@@ -13,11 +13,6 @@ namespace wikipedia_koveto
 {
     static class Program
     {
-        static void checkForDifferencesAndSendEmail(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            Console.WriteLine("The Elapsed event was raised at {0}", e.SignalTime);
-        }
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
