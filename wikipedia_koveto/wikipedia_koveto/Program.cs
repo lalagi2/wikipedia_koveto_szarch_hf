@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using wikipedia_koveto.Model;
 using System.Threading;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace wikipedia_koveto
 {
@@ -22,20 +24,6 @@ namespace wikipedia_koveto
         [STAThread]
         static void Main()
         {
-            //StringComparer stringcomparer = new StringComparer();
-
-            //double res = stringcomparer.CalculateSimilarity("ads", "add");
-            //Console.WriteLine("Hasonlóság " + res);
-
-            //System.Timers.Timer timer = new System.Timers.Timer();
-            //timer.Interval = 1000;
-            //timer.Elapsed += checkForDifferencesAndSendEmail;
-            //timer.Start();
-
-            // Test email
-            //EmailSender emailSender = new EmailSender();
-            //emailSender.sendEmail("tothlajosg@gmail.com", "toth lajos", "subject", "uzenet");
-
             var poller = new WikipediaPoller();
             var pollerThread = new Thread(() => poller.poll());
             pollerThread.Start();
@@ -46,28 +34,6 @@ namespace wikipedia_koveto
 
             poller.stop();
             pollerThread.Join();
-
-            // Test Database
-            //using (UserDataEntities dc = new UserDataEntities())
-            //{
-            //    var users = from user in dc.Users select new { user.UserName, user.Email };
-            //    foreach (var user in users)
-            //    {
-            //        Console.WriteLine("( " + user.UserName + ", " + user.Email + " )");
-            //    }
-
-            //    var groups = from page in dc.Pages where page.UserName.Contains("User1")
-            //                group page by page.UserName into g
-            //                select g;
-            //    foreach (var g in groups)
-            //    {
-            //        Console.WriteLine(g.Key);
-            //        foreach (var page in g)
-            //        {
-            //            Console.WriteLine("   {0}, {1}, {2}", page.WikiPage, page.Sensitivity, page.RefreshRate);
-            //        }
-            //    }
-            //}
         }
     }
 }

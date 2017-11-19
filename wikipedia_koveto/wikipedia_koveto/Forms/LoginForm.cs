@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,6 +24,12 @@ namespace wikipedia_koveto
 
         }
 
+        private static string Hash(string input)
+        {
+            var hash = (new SHA1Managed()).ComputeHash(Encoding.UTF8.GetBytes(input));
+            return string.Join("", hash.Select(b => b.ToString("X2")).ToArray());
+        }
+
         private void login()
         {
             bool loginSuccessful = false;
@@ -31,7 +38,7 @@ namespace wikipedia_koveto
                 var users = from user in dc.Users select new { user.UserName, user.Email, user.IsAdmin, user.UserPass };
                 foreach (var user in users)
                 {
-                    if (userNameTextBox.Text == user.UserName && passwordTextBox.Text == user.UserPass)
+                    if (userNameTextBox.Text == user.UserName && Hash(passwordTextBox.Text) == user.UserPass)
                     {
                         loginSuccessful = true;
                         // Elugrunk az user windowra
