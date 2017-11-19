@@ -16,6 +16,8 @@ namespace wikipedia_koveto.Forms
     {
         private string userName; // To store which user logged in
         private bool isAdmin;
+        private AdminForm adminForm = null;
+        private LoginForm loginForm = null;
 
         public void deleteDataGrid()
         {
@@ -30,7 +32,12 @@ namespace wikipedia_koveto.Forms
 
         protected override void OnClosed(EventArgs e)
         {
-            Application.Exit();
+            if (adminForm != null)
+                adminForm.Close();
+            if (loginForm == null)
+                Application.Exit();
+            else
+                loginForm.Show();
             base.OnClosed(e);
         }
 
@@ -99,12 +106,14 @@ namespace wikipedia_koveto.Forms
             this.unsubscribeComboBox1.Items.Clear();
         }
 
-        public SimpleUserForm(string userName, bool isAdmin = false)
+        public SimpleUserForm(string userName, LoginForm parent, bool isAdmin = false)
         {
             InitializeComponent();
 
             this.userName = userName;
             WelcomeLabel.Text += " " + userName + "!";
+
+            loginForm = parent;
 
             if (isAdmin)
                 admin_button.Visible = true;
@@ -210,7 +219,7 @@ namespace wikipedia_koveto.Forms
                 var user_admin = from user in dc.Users where user.UserName == userName select new { user.IsAdmin };
                 if (user_admin.FirstOrDefault().IsAdmin)
                 {
-                    Forms.AdminForm adminForm = new Forms.AdminForm(userName);
+                    adminForm = new Forms.AdminForm(userName);
                     adminForm.Show();
                 }
             }

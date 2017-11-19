@@ -42,8 +42,9 @@ namespace wikipedia_koveto
                     {
                         loginSuccessful = true;
                         // Elugrunk az user windowra
-                        this.Hide();
-                        Forms.SimpleUserForm userForm = new Forms.SimpleUserForm(user.UserName, user.IsAdmin);
+                        passwordTextBox.Text = "";
+                        Hide();
+                        Forms.SimpleUserForm userForm = new Forms.SimpleUserForm(user.UserName, this, user.IsAdmin);
                         userForm.Show();
                     }
                 }
