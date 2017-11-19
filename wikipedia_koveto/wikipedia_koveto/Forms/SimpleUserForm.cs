@@ -60,6 +60,7 @@ namespace wikipedia_koveto.Forms
                     newPage.WikiPage = subscribePageName;
                     newPage.Sensitivity = subscribeSensitivity;
                     newPage.RefreshRate = subscriberefreshRate;
+                    newPage.LastRevision = -1;
 
                     dc.Pages.Add(newPage);
                     dc.SaveChanges();
@@ -154,33 +155,17 @@ namespace wikipedia_koveto.Forms
             // username és a kiválasztott wikipedia oldal függvényében kitöröljük a Pages táblából a sort, majd meghívjuk a refreshDataGridet
             using (UserDataEntities dc = new UserDataEntities())
             {
-                var itemToRemove = (from s1 in dc.Pages
+                var itemToChange = (from s1 in dc.Pages
                                     where s1.WikiPage == selectedItem.ToString() && s1.UserName == userName
                                     select s1).FirstOrDefault();
 
-                if (itemToRemove != null)
+                if (itemToChange != null)
                 {
-                    dc.Pages.Remove(itemToRemove);
+                    itemToChange.Sensitivity = (int)modifySensitivityNumericBox.Value;
+                    itemToChange.RefreshRate = (int)modifyRefreshRate.Value;
+                    // dc.Pages.Remove(itemToRemove);
                     dc.SaveChanges();
                 }
-            }
-
-            // newWikipediaPageTextBox, sensitivityNumericBox, refreshRateNumericBox értékét  kiovlassuk, és beszúrunk egy új sort a Pages táblába, majd meghívjuk a refreshDataGridet
-            string subscribePageName = selectedItem.ToString();
-            int subscribeSensitivity = (int)modifySensitivityNumericBox.Value;
-            int subscriberefreshRate = (int)modifyRefreshRate.Value;
-
-            using (UserDataEntities dc = new UserDataEntities())
-            {
-                Page newPage = new Page();
-                newPage.UserName = this.userName;
-                newPage.WikiPage = subscribePageName;
-                newPage.Sensitivity = subscribeSensitivity;
-                newPage.RefreshRate = subscriberefreshRate;
-                newPage.LastRevision = -1;
-
-                dc.Pages.Add(newPage);
-                dc.SaveChanges();
             }
 
             refreshDataGrid();

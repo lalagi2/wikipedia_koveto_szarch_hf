@@ -40,7 +40,6 @@ namespace wikipedia_koveto
                                 select page;
                 foreach (var page in pages)
                 {
-                    page.LastNotified = DateTime.Today;
                     page.Notified = 0;
                 }
                 date = DateTime.Today;
@@ -56,7 +55,6 @@ namespace wikipedia_koveto
                                 select page;
                 foreach(var page in pages)
                 {
-                    page.LastNotified = DateTime.Today;
                     page.Notified = 0;
                 }
 
@@ -87,6 +85,7 @@ namespace wikipedia_koveto
 
                     Stopwatch sw = new Stopwatch();
                     sw.Start();
+                    long ellapsed = 0;
                     List<PageReadData> pages;
                     using (UserDataEntities dc = new UserDataEntities())
                     {
@@ -120,7 +119,10 @@ namespace wikipedia_koveto
                                     break;
                                 }
                             }
+                            ellapsed = sw.ElapsedMilliseconds;
+                            sw.Reset();
                         }
+                        sw.Start();
                         if (page.Notified == page.NotificationPerDay)
                         {
                             // User reached notification limit
@@ -138,9 +140,10 @@ namespace wikipedia_koveto
                         }
                     }
                     sw.Stop();
+                    sw.Reset();
                     // Start on ellapsed milliseconds, that way if ellapsed time less then 60000 miliseconds
                     // then there is no plus sleep time
-                    milisec = sw.ElapsedMilliseconds;
+                    milisec = ellapsed;
                 }
                 if (milisec < 60000)
                 {
@@ -220,11 +223,11 @@ namespace wikipedia_koveto
 
             var hs1 = new HashSet<string>(words1.Cast<Match>().Select(m => m.Value));
             var hs2 = new HashSet<string>(words2.Cast<Match>().Select(m => m.Value));
-
+            
             hs2.ExceptWith(hs1);
-            int newVersionExtraWordCounter = hs2.Count;
+            int prevVersionExtraWordCounter = hs2.Count;
             hs1.ExceptWith(hs2);
-            int prevVersionExtraWordCounter = hs1.Count;
+            int newVersionExtraWordCounter = hs1.Count;
 
             // Calculate diff, if bigger then sensititvity, then send email
             if (newVersionExtraWordCounter + prevVersionExtraWordCounter > data.Sensitivity)
